@@ -1,26 +1,78 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #16a34a;
+  --color-primary-dark: #15803d;
+  --color-secondary: #0ea5e9;
+  --color-dark: #0f172a;
+  --color-light: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #334155;
+  --color-text-light: #64748b;
+  
+  --cat-oil: #f59e0b;
+  --cat-rev: #3b82f6;
+  --cat-eco: #22c55e;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--color-light);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* Botões */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 600; cursor: pointer;
+  transition: all 0.2s ease; border: none; font-size: 0.95rem;
+}
+.btn-primary { background-color: var(--color-primary); color: white; }
+.btn-primary:hover { background-color: var(--color-primary-dark); transform: translateY(-2px); }
+.btn-outline { background-color: transparent; border: 2px solid var(--color-primary); color: var(--color-primary); }
+.btn-outline:hover { background-color: #f0fdf4; }
+
+/* Formularios */
+.input-group { margin-bottom: 1.5rem; }
+.input-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; }
+.input-field {
+  width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1;
+  border-radius: 12px; font-family: inherit; font-size: 1rem; transition: border-color 0.2s;
+}
+.input-field:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1); }
+
+/* Glassmorphism */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  transition: transform 0.2s, box-shadow: 0.2s;
+}
+.glass-card:hover {
+  transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Utils */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.text-center { text-align: center; }
+.mt-2 { margin-top: 2rem; } .mb-2 { margin-bottom: 2rem; }
+
+/* Hero Animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.hero-gradient {
+  background: linear-gradient(-45deg, #064e3b, #065f46, #0d9488, #0ea5e9);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  color: white; padding: 6rem 1rem; position: relative; overflow: hidden;
 }

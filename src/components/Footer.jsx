@@ -1,0 +1,36 @@
+import { Leaf } from 'lucide-react';
+
+export default function Footer() {
+  return (
+    <footer style={{ background: 'var(--color-dark)', color: '#94a3b8', padding: '4rem 0 2rem' }}>
+      <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+            <Leaf color="var(--color-primary)" size={24} />
+            <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'white' }}>Eco<span style={{ color: 'var(--color-primary)' }}>Link</span></span>
+          </div>
+          <p style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>Conectando Uberaba ao descarte consciente. Encontre pontos de coleta próximos e contribua com um futuro sustentável.</p>
+        </div>
+        <div>
+          <h4 style={{ color: 'white', marginBottom: '1rem' }}>Links Rápidos</h4>
+          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
+            <li><a href="/">Início</a></li>
+            <li><a href="/mapa">Mapa de Ecopontos</a></li>
+            <li><a href="/pontos">Lista de Pontos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style={{ color: 'white', marginBottom: '1rem' }}>Categorias</h4>
+          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--cat-oil)' }}></span> Óleo de Cozinha</li>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--cat-rev)' }}></span> Logística Reversa</li>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--cat-eco)' }}></span> Ecopontos Municipais</li>
+          </ul>
+        </div>
+      </div>
+      <div className="container" style={{ borderTop: '1px solid #1e293b', paddingTop: '2rem', textAlign: 'center', fontSize: '0.85rem' }}>
+        <p>© {new Date().getFullYear()} EcoLink. Feito com 💚 para a comunidade de Uberaba.</p>
+      </div>
+    </footer>
+  );
+}
