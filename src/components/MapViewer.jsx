@@ -41,7 +41,7 @@ export default function MapViewer({ points }) {
 
   return (
     <MapContainer center={[-19.7488, -47.9300]} zoom={13} style={{ height: '500px', width: '100%', borderRadius: '1rem', zIndex: 1 }}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
+      <TileLayer url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}" attribution="&copy; Google Maps" />
       {points.filter(p => p.latitude && p.longitude).map(ponto => (
         <Marker 
           key={ponto.id} 

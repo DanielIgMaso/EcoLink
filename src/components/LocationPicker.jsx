@@ -104,7 +104,7 @@ export default function LocationPicker({ position, setPosition, existingPoints =
         zoom={13} 
         style={{ height: '300px', width: '100%', borderRadius: '12px', zIndex: 1, border: '1px solid #cbd5e1' }}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap" />
+        <TileLayer url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}" attribution="&copy; Google Maps" />
         <MapSearch searchQuery={searchQuery} executeSearch={executeSearch} setExecuteSearch={setExecuteSearch} />
         {existingPoints.filter(p => p.latitude && p.longitude).map(ponto => (
           <Marker 
