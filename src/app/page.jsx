@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Map, Search, Droplets, RefreshCw, MapPin } from 'lucide-react';
+import { Map, Search, Droplets, RefreshCw, MapPin, Truck } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -57,6 +57,14 @@ export default function Home() {
             </div>
             <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem', color: 'var(--color-dark)' }}>Ecopontos Municipais</h3>
             <p style={{ color: 'var(--color-text-light)', fontSize: '0.95rem' }}>Locais da prefeitura para recebimento de recicláveis, móveis velhos e resíduos volumosos.</p>
+          </div>
+
+          <div className="glass-card">
+            <div style={{ width: '60px', height: '60px', borderRadius: '16px', background: 'var(--cat-truck)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              <Truck color="white" size={32} />
+            </div>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem', color: 'var(--color-dark)' }}>Cata-Treco</h3>
+            <p style={{ color: 'var(--color-text-light)', fontSize: '0.95rem' }}>Serviço de coleta em domicílio para resíduos volumosos que você não pode transportar. Ligue 34 99938-2657 e agende a retirada de sofás, móveis e eletrodomésticos.</p>
           </div>
 
         </div>
