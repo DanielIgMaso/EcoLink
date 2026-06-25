@@ -9,8 +9,12 @@ export default function PontosPage() {
   const [filterCat, setFilterCat] = useState('');
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
+  const loadPoints = () => {
     getPoints(true).then(setPoints);
+  };
+
+  useEffect(() => {
+    loadPoints();
   }, []);
 
   const filtered = points.filter(p => {
@@ -39,7 +43,7 @@ export default function PontosPage() {
         <div className="text-center" style={{ padding: '4rem 0', color: 'var(--color-text-light)' }}>Nenhum ponto encontrado.</div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
-          {filtered.map(p => <PointCard key={p.id} ponto={p} />)}
+          {filtered.map(p => <PointCard key={p.id} ponto={p} onUpdate={loadPoints} />)}
         </div>
       )}
     </div>

@@ -1,0 +1,198 @@
+[
+  {
+    "nome": "Parque das Barrigudas",
+    "endereco": "Parque das Barrigudas, Univerdecidade, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Centro de Reservação (CR) 02 Boa Vista",
+    "endereco": "Rua Delfim Moreira, 762 - Boa Vista, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Centro de Reservação (CR) 06 Olinda",
+    "endereco": "Av. Nenê Sabino, 955 - Olinda, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Escola Municipal Boa Vista",
+    "endereco": "Av. Elias Cruvinel, 1040 - Boa Vista, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Escola Municipal Arthur de Melo Teixeira",
+    "endereco": "Rua Sebastião Firmino de Abreu, 120 - Uberaba I, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Escola Municipal Olga de Oliveira",
+    "endereco": "Parque das Américas, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Escola Municipal Professora Geni Chaves",
+    "endereco": "Rua São Mateus, 486 - Abadia, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Escola Municipal Professora Stella Chaves",
+    "endereco": "Rua Alfredo Peguine Neto, 150 - Alfredo Freire, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Escola Municipal Reis Júnior",
+    "endereco": "Praça Vitoria, 401 - Jardim Espírito Santo, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "Escola Municipal Joubert de Carvalho",
+    "endereco": "Rua Adelino Jose Pinheiro, 120 - Vallim de Melo, Uberaba - MG",
+    "categorias": [
+      "oleo"
+    ]
+  },
+  {
+    "nome": "CETA / Parque das Barrigudas",
+    "endereco": "Parque das Barrigudas - Univerdecidade, Uberaba - MG",
+    "categorias": [
+      "reversa"
+    ]
+  },
+  {
+    "nome": "ACIU",
+    "endereco": "Av. Leopoldino de Oliveira, 3433 - Centro, Uberaba - MG",
+    "categorias": [
+      "reversa"
+    ]
+  },
+  {
+    "nome": "Centro Administrativo (PMU)",
+    "endereco": "Av. Dom Luiz Maria de Santana, 141 - Santa Marta, Uberaba - MG",
+    "categorias": [
+      "reversa"
+    ]
+  },
+  {
+    "nome": "CODAU",
+    "endereco": "Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG",
+    "categorias": [
+      "reversa"
+    ]
+  },
+  {
+    "nome": "PROCON",
+    "endereco": "Av. Leopoldino de Oliveira, 2976 - Centro, Uberaba - MG",
+    "categorias": [
+      "reversa"
+    ]
+  },
+  {
+    "nome": "Praça Uberaba Shopping",
+    "endereco": "Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG",
+    "categorias": [
+      "reversa"
+    ]
+  },
+  {
+    "nome": "Bahamas",
+    "endereco": "Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG",
+    "categorias": [
+      "reversa"
+    ]
+  },
+  {
+    "nome": "Ecoponto Alfredo Freire",
+    "endereco": "Rua Iracema Barreto Pires, 280 - Alfredo Freire III, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Res. Estados Unidos",
+    "endereco": "Rua Alaska, 120 - Res. Estados Unidos, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Serra Dourada",
+    "endereco": "Avenida Jaraguá, 810 - Jardim Uberaba, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Jardim Califórnia",
+    "endereco": "Rua Ataliba Guaritá, 216 - Jardim Califórnia, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Jardim Maracanã",
+    "endereco": "Rua José Tinoco, 365 - Jardim Maracanã, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Pacaembu",
+    "endereco": "Rua Cláudio Talarico, 890 - Pacaembu, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Residencial 2000",
+    "endereco": "Rua André Luiz Samuel Alves, 170 - Residencial 2000, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Valim de Melo",
+    "endereco": "Rua Norma Menegaz Resende, 1222 - Conj. José Valim de Melo I, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Amoroso Costa",
+    "endereco": "Rua Eva das Graças Oliveira Silva, 552 - Antônia Cândida I, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto São José",
+    "endereco": "Rua Nelson Ciabotti, 51 - São José, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  },
+  {
+    "nome": "Ecoponto Volta Grande",
+    "endereco": "Rua Antônio Alves Fontes, 961 - Parque das Américas, Uberaba - MG",
+    "categorias": [
+      "ecoponto"
+    ]
+  }
+]

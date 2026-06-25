@@ -1,13 +1,14 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { addPoint, CATEGORIES } from '@/lib/db';
+import { getPoint, updatePoint, CATEGORIES } from '@/lib/db';
 import dynamic from 'next/dynamic';
 
 const LocationPicker = dynamic(() => import('@/components/LocationPicker'), { ssr: false });
 
-export default function NovoPontoPage() {
+export default function EditarPontoPage({ params }) {
+  const { id } = use(params);
   const { user, role, loading } = useAuth();
   const router = useRouter();
 
@@ -23,6 +24,8 @@ export default function NovoPontoPage() {
   const [position, setPosition] = useState(null);
   const [status, setStatus] = useState(null);
   const [existingPoints, setExistingPoints] = useState([]);
+  const [isCreator, setIsCreator] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     import('@/lib/db').then(({ getPoints }) => {
@@ -31,58 +34,59 @@ export default function NovoPontoPage() {
   }, []);
 
   useEffect(() => {
-    if (position) {
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.lat}&lon=${position.lng}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.address) {
-            const addr = data.address;
-            const rua = addr.road || addr.pedestrian || '';
-            const numero = addr.house_number ? `, ${addr.house_number}` : '';
-            const novoEndereco = `${rua}${numero}`.trim();
-            const novoBairro = addr.suburb || addr.neighbourhood || addr.village || '';
-            
-            setForm(prev => ({
-              ...prev,
-              endereco: novoEndereco || prev.endereco,
-              bairro: novoBairro || prev.bairro
-            }));
-            setStatus({ type: 'success', msg: 'Endereço preenchido automaticamente pelo mapa! Verifique os dados abaixo.' });
+    if (id) {
+      getPoint(id).then(data => {
+        if (data) {
+          setForm({
+            nome: data.nome || '',
+            endereco: data.endereco || '',
+            bairro: data.bairro || '',
+            telefone: data.telefone || '',
+            horario: data.horario || '',
+            descricao: data.descricao || '',
+            categorias: data.categorias || []
+          });
+          if (data.latitude && data.longitude) {
+            setPosition({ lat: data.latitude, lng: data.longitude });
           }
-        })
-        .catch(err => console.error("Erro ao buscar endereço:", err));
+          if (user && data.createdBy === user.uid) {
+            setIsCreator(true);
+          }
+        } else {
+          setStatus({ type: 'error', msg: 'Ponto não encontrado.' });
+        }
+        setInitialLoading(false);
+      });
     }
-  }, [position]);
+  }, [id, user]);
 
-  if (loading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>Carregando...</div>;
+  if (loading || initialLoading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>Carregando...</div>;
 
-  if (!user || (role !== 'PONTO' && role !== 'ADMIN')) {
+  if (!user || (role !== 'ADMIN' && !isCreator)) {
     return (
       <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>
         <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#ef4444' }}>Acesso Negado</h1>
-        <p style={{ color: 'var(--color-text-light)' }}>Você precisa ser um usuário do tipo Ecoponto ou Admin para cadastrar locais.</p>
+        <p style={{ color: 'var(--color-text-light)' }}>Você não tem permissão para editar este ponto.</p>
       </div>
     );
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus({ type: 'info', msg: 'Enviando...' });
+    setStatus({ type: 'info', msg: 'Salvando alterações...' });
     
-    // Converter lat/lng para number se preenchidos
     const dataToSave = {
       ...form,
       latitude: position ? position.lat : null,
-      longitude: position ? position.lng : null,
-      createdBy: user.uid
+      longitude: position ? position.lng : null
     };
 
-    const res = await addPoint(dataToSave);
+    const res = await updatePoint(id, dataToSave);
     if (res.success) {
-      setStatus({ type: 'success', msg: role === 'ADMIN' ? 'Ponto cadastrado com sucesso!' : 'Ponto cadastrado! Aguardando aprovação do administrador.' });
-      setTimeout(() => router.push('/pontos'), 2500);
+      setStatus({ type: 'success', msg: 'Ponto atualizado com sucesso!' });
+      setTimeout(() => router.push('/pontos'), 1500);
     } else {
-      setStatus({ type: 'error', msg: 'Erro ao cadastrar. Tente novamente.' });
+      setStatus({ type: 'error', msg: 'Erro ao salvar. Tente novamente.' });
     }
   };
 
@@ -97,8 +101,8 @@ export default function NovoPontoPage() {
 
   return (
     <div className="container" style={{ padding: '3rem 0', maxWidth: '800px' }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Cadastrar Novo Ponto de Coleta</h1>
-      <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Preencha os dados do local. Após o envio, os dados serão validados.</p>
+      <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Editar Ponto de Coleta</h1>
+      <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Atualize os dados e a localização no mapa.</p>
 
       {status && (
         <div style={{ 
@@ -165,7 +169,7 @@ export default function NovoPontoPage() {
 
           <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
             <button type="button" className="btn btn-outline" onClick={() => router.back()}>Cancelar</button>
-            <button type="submit" className="btn btn-primary" disabled={form.categorias.length === 0 || !position}>Salvar Ponto de Coleta</button>
+            <button type="submit" className="btn btn-primary" disabled={form.categorias.length === 0 || !position}>Salvar Alterações</button>
           </div>
         </form>
       </div>

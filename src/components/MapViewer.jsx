@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import { CATEGORIES } from '@/lib/db';
+
 
 export default function MapViewer({ points }) {
   const [mounted, setMounted] = useState(false);
