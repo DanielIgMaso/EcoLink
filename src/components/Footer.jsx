@@ -32,6 +32,7 @@ export default function Footer() {
             <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--cat-oil)' }}></span> Óleo de Cozinha</li>
             <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--cat-rev)' }}></span> Logística Reversa</li>
             <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--cat-eco)' }}></span> Ecopontos Municipais</li>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--cat-truck)' }}></span> Cata-Treco</li>
           </ul>
         </div>
       </div>

@@ -33,7 +33,7 @@ export default function Home() {
           <p style={{ color: 'var(--color-text-light)' }}>Conheça as categorias aceitas nos pontos de coleta cadastrados.</p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
           
           <div className="glass-card">
             <div style={{ width: '60px', height: '60px', borderRadius: '16px', background: 'var(--cat-oil)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
