@@ -28,7 +28,7 @@ export default function PontosPage() {
       <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>Pontos de Coleta</h1>
       <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Encontre locais para descarte correto na cidade.</p>
 
-      <div style={{ background: 'white', padding: '1rem', borderRadius: '1rem', display: 'flex', gap: '1rem', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '2rem', flexWrap: 'wrap' }}>
+      <div className="search-filter-container" style={{ background: 'white', padding: '1rem', borderRadius: '1rem', display: 'flex', gap: '1rem', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '2rem', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 300px', display: 'flex', alignItems: 'center', background: '#f8fafc', padding: '0 1rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
           <Search size={20} color="#94a3b8"/>
           <input type="text" placeholder="Buscar por nome ou endereço..." value={search} onChange={e => setSearch(e.target.value)} style={{ border: 'none', background: 'transparent', padding: '0.8rem', width: '100%', outline: 'none' }} />
