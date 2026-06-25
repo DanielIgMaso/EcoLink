@@ -128,7 +128,7 @@ export default function LocationPicker({ position, setPosition, existingPoints =
         ))}
         <LocationMarker position={position} setPosition={setPosition} />
       </MapContainer>
-      <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 400, background: 'rgba(255,255,255,0.9)', padding: '0.5rem', borderRadius: '8px', fontSize: '0.85rem', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+      <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)', zIndex: 400, background: 'rgba(255,255,255,0.95)', padding: '0.5rem 1rem', borderRadius: '8px', fontSize: '0.85rem', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', width: 'max-content', maxWidth: '90%', textAlign: 'center' }}>
         Navegue e <b>clique no mapa</b> para marcar o local exato.
       </div>
     </div>
