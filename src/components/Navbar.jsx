@@ -16,7 +16,7 @@ export default function Navbar() {
             alt="Logo oficial do EcoLink" 
             width={437} 
             height={139} 
-            style={{ width: '70%', height: 'auto' }}
+            style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
           />
         </Link>
         
