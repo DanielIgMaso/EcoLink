@@ -7,6 +7,7 @@ export default function MapViewer({ points }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     // Fix leaflet default icon issue in React
     delete L.Icon.Default.prototype._getIconUrl;

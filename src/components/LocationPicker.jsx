@@ -19,6 +19,7 @@ export default function LocationPicker({ position, setPosition }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     delete L.Icon.Default.prototype._getIconUrl;
     L.Icon.Default.mergeOptions({

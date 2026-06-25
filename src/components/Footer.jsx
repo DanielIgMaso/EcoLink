@@ -1,4 +1,5 @@
 import { Leaf } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -14,9 +15,9 @@ export default function Footer() {
         <div>
           <h4 style={{ color: 'white', marginBottom: '1rem' }}>Links Rápidos</h4>
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
-            <li><a href="/">Início</a></li>
-            <li><a href="/mapa">Mapa de Ecopontos</a></li>
-            <li><a href="/pontos">Lista de Pontos</a></li>
+            <li><Link href="/">Início</Link></li>
+            <li><Link href="/mapa">Mapa de Ecopontos</Link></li>
+            <li><Link href="/pontos">Lista de Pontos</Link></li>
           </ul>
         </div>
         <div>
