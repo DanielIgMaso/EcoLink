@@ -48,7 +48,24 @@ export default function MapViewer({ points }) {
           <Popup>
             <div style={{ fontFamily: 'Outfit' }}>
               <strong>{ponto.nome}</strong><br/>
-              <span style={{ fontSize: '0.85rem', color: '#64748b' }}>{ponto.endereco}</span>
+              <span style={{ fontSize: '0.85rem', color: '#64748b', display: 'block', marginBottom: '0.5rem' }}>{ponto.endereco}</span>
+              <a 
+                href={`https://www.google.com/maps/dir/?api=1&destination=${ponto.latitude},${ponto.longitude}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  background: '#3b82f6',
+                  color: 'white',
+                  padding: '0.3rem 0.6rem',
+                  borderRadius: '4px',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  textDecoration: 'none'
+                }}
+              >
+                Como Chegar
+              </a>
             </div>
           </Popup>
         </Marker>
