@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import { addPoint, CATEGORIES } from '@/lib/db';
@@ -22,6 +22,13 @@ export default function NovoPontoPage() {
   });
   const [position, setPosition] = useState(null);
   const [status, setStatus] = useState(null);
+  const [existingPoints, setExistingPoints] = useState([]);
+
+  useEffect(() => {
+    import('@/lib/db').then(({ getPoints }) => {
+      getPoints(true).then(setExistingPoints);
+    });
+  }, []);
 
   if (loading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>Carregando...</div>;
 
@@ -99,8 +106,8 @@ export default function NovoPontoPage() {
 
           <div className="input-group">
             <label>Localização no Mapa *</label>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-light)', marginBottom: '0.5rem' }}>Arraste o mapa e clique no local exato do seu ecoponto.</p>
-            <LocationPicker position={position} setPosition={setPosition} />
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-light)', marginBottom: '0.5rem' }}>Arraste o mapa e clique no local exato do seu ecoponto. Os pontos coloridos já estão cadastrados.</p>
+            <LocationPicker position={position} setPosition={setPosition} existingPoints={existingPoints} />
             {!position && <span style={{ color: '#ef4444', fontSize: '0.85rem', display: 'block', marginTop: '0.5rem' }}>* Por favor, clique no mapa para definir a localização.</span>}
           </div>
 

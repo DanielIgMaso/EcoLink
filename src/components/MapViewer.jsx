@@ -2,6 +2,22 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import { CATEGORIES } from '@/lib/db';
+
+const getCategoryColor = (categorias) => {
+  if (!categorias || categorias.length === 0) return '#3b82f6';
+  const cat = CATEGORIES.find(c => categorias.includes(c.id));
+  return cat ? cat.cor : '#3b82f6';
+};
+
+const createCustomIcon = (color) => {
+  return L.divIcon({
+    className: 'custom-leaflet-icon',
+    html: `<div style="background-color: ${color}; width: 22px; height: 22px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.4);"></div>`,
+    iconSize: [22, 22],
+    iconAnchor: [11, 11]
+  });
+};
 
 export default function MapViewer({ points }) {
   const [mounted, setMounted] = useState(false);
@@ -24,7 +40,11 @@ export default function MapViewer({ points }) {
     <MapContainer center={[-19.7488, -47.9300]} zoom={13} style={{ height: '500px', width: '100%', borderRadius: '1rem', zIndex: 1 }}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
       {points.filter(p => p.latitude && p.longitude).map(ponto => (
-        <Marker key={ponto.id} position={[ponto.latitude, ponto.longitude]}>
+        <Marker 
+          key={ponto.id} 
+          position={[ponto.latitude, ponto.longitude]}
+          icon={createCustomIcon(getCategoryColor(ponto.categorias))}
+        >
           <Popup>
             <div style={{ fontFamily: 'Outfit' }}>
               <strong>{ponto.nome}</strong><br/>
