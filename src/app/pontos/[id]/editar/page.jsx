@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import { getPoint, updatePoint, CATEGORIES } from '@/lib/db';
@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 const LocationPicker = dynamic(() => import('@/components/LocationPicker'), { ssr: false });
 
 export default function EditarPontoPage({ params }) {
+  const { id } = use(params);
   const { user, role, loading } = useAuth();
   const router = useRouter();
 
@@ -33,8 +34,8 @@ export default function EditarPontoPage({ params }) {
   }, []);
 
   useEffect(() => {
-    if (params.id) {
-      getPoint(params.id).then(data => {
+    if (id) {
+      getPoint(id).then(data => {
         if (data) {
           setForm({
             nome: data.nome || '',
@@ -57,7 +58,7 @@ export default function EditarPontoPage({ params }) {
         setInitialLoading(false);
       });
     }
-  }, [params.id, user]);
+  }, [id, user]);
 
   if (loading || initialLoading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>Carregando...</div>;
 
@@ -80,7 +81,7 @@ export default function EditarPontoPage({ params }) {
       longitude: position ? position.lng : null
     };
 
-    const res = await updatePoint(params.id, dataToSave);
+    const res = await updatePoint(id, dataToSave);
     if (res.success) {
       setStatus({ type: 'success', msg: 'Ponto atualizado com sucesso!' });
       setTimeout(() => router.push('/pontos'), 1500);
