@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/lib/auth';
 import { Leaf, LogOut, MapPin, Map, Home, PlusCircle, ShieldAlert } from 'lucide-react';
 
@@ -10,10 +11,13 @@ export default function Navbar() {
     <header style={{ background: 'white', borderBottom: '1px solid #e2e8f0', position: 'sticky', top: 0, zIndex: 50 }}>
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '70px' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-dark)' }}>
-          <div style={{ background: 'linear-gradient(to bottom right, var(--color-primary), #0d9488)', padding: '0.4rem', borderRadius: '8px' }}>
-            <Leaf color="white" size={20} />
-          </div>
-          Eco<span style={{ color: 'var(--color-primary)' }}>Link</span>
+          <Image 
+            src="/logoEcoLinkExtensa.png" 
+            alt="Logo oficial do EcoLink" 
+            width={437} 
+            height={139} 
+            style={{ width: '70%', height: 'auto' }}
+          />
         </Link>
         
         <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.95rem', fontWeight: 500 }}>

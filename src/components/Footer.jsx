@@ -1,4 +1,5 @@
 import { Leaf } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -6,8 +7,13 @@ export default function Footer() {
       <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-            <Leaf color="var(--color-primary)" size={24} />
-            <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'white' }}>Eco<span style={{ color: 'var(--color-primary)' }}>Link</span></span>
+            <Image 
+              src="/logoExtensaCinza.png" 
+              alt="Logo oficial do EcoLink" 
+              width={437} 
+              height={139} 
+              style={{ width: '45%', height: 'auto' }}
+            />
           </div>
           <p style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>Conectando Uberaba ao descarte consciente. Encontre pontos de coleta próximos e contribua com um futuro sustentável.</p>
         </div>

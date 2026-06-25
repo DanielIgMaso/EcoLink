@@ -1,5 +1,5 @@
 :root {
-  --color-primary: #16a34a;
+  --color-primary: /*#16a34a*/#3f7355;
   --color-primary-dark: #15803d;
   --color-secondary: #0ea5e9;
   --color-dark: #0f172a;
@@ -11,6 +11,7 @@
   --cat-oil: #f59e0b;
   --cat-rev: #3b82f6;
   --cat-eco: #22c55e;
+  --cat-truck: #647925;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
