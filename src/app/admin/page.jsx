@@ -41,7 +41,7 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="container mt-2 mb-2" style={{ padding: '2rem 0' }}>
+    <div className="container mt-2 mb-2" style={{ padding: '2rem 1.5rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
         <div>
           <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>Painel do Administrador</h1>

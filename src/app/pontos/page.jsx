@@ -24,7 +24,7 @@ export default function PontosPage() {
   });
 
   return (
-    <div className="container mt-2 mb-2" style={{ padding: '2rem 0' }}>
+    <div className="container mt-2 mb-2" style={{ padding: '2rem 1.5rem' }}>
       <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>Pontos de Coleta</h1>
       <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Encontre locais para descarte correto na cidade.</p>
 

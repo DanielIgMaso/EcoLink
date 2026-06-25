@@ -96,7 +96,7 @@ export default function NovoPontoPage() {
   };
 
   return (
-    <div className="container" style={{ padding: '3rem 0', maxWidth: '800px' }}>
+    <div className="container" style={{ padding: '3rem 1.5rem', maxWidth: '800px' }}>
       <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Cadastrar Novo Ponto de Coleta</h1>
       <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Preencha os dados do local. Após o envio, os dados serão validados.</p>
 

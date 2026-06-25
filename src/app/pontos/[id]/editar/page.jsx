@@ -100,7 +100,7 @@ export default function EditarPontoPage({ params }) {
   };
 
   return (
-    <div className="container" style={{ padding: '3rem 0', maxWidth: '800px' }}>
+    <div className="container" style={{ padding: '3rem 1.5rem', maxWidth: '800px' }}>
       <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Editar Ponto de Coleta</h1>
       <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Atualize os dados e a localização no mapa.</p>
 

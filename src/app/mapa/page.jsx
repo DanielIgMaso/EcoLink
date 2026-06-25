@@ -13,7 +13,7 @@ export default function MapaPage() {
   }, []);
 
   return (
-    <div className="container mt-2 mb-2" style={{ padding: '2rem 0' }}>
+    <div className="container mt-2 mb-2" style={{ padding: '2rem 1.5rem' }}>
       <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>Mapa de Ecopontos</h1>
       <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Explore os pontos de coleta e descarte de Uberaba.</p>
 
