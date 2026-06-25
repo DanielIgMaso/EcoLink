@@ -9,8 +9,8 @@ export default function Navbar() {
 
   return (
     <header style={{ background: 'white', borderBottom: '1px solid #e2e8f0', position: 'sticky', top: 0, zIndex: 50 }}>
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '70px' }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-dark)' }}>
+      <div className="container navbar-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '70px' }}>
+        <Link href="/" className="navbar-logo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-dark)' }}>
           <Image 
             src="/logoEcolinkExtensa.png" 
             alt="Logo oficial do EcoLink" 
@@ -20,30 +20,30 @@ export default function Navbar() {
           />
         </Link>
         
-        <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.95rem', fontWeight: 500 }}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Home size={16}/> Início</Link>
-          <Link href="/mapa" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Map size={16}/> Mapa</Link>
-          <Link href="/pontos" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><MapPin size={16}/> Pontos</Link>
+        <nav className="navbar-nav" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.95rem', fontWeight: 500 }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Home size={16}/> <span className="hide-on-mobile">Início</span></Link>
+          <Link href="/mapa" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Map size={16}/> <span className="hide-on-mobile">Mapa</span></Link>
+          <Link href="/pontos" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><MapPin size={16}/> <span className="hide-on-mobile">Pontos</span></Link>
           
           {(role === 'PONTO' || role === 'ADMIN') && (
             <Link href="/pontos/novo" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--color-primary)' }}>
-              <PlusCircle size={16}/> Cadastrar Ponto
+              <PlusCircle size={16}/> <span className="hide-on-mobile">Cadastrar Ponto</span>
             </Link>
           )}
 
           {role === 'ADMIN' && (
             <Link href="/admin" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#ea580c' }}>
-              <ShieldAlert size={16}/> Pendentes
+              <ShieldAlert size={16}/> <span className="hide-on-mobile">Pendentes</span>
             </Link>
           )}
         </nav>
 
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        <div className="navbar-auth" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           {user ? (
             <>
-              <span style={{ fontSize: '0.9rem', color: 'var(--color-text-light)' }}>Olá, {user.email?.split('@')[0]}</span>
+              <span className="hide-on-mobile" style={{ fontSize: '0.9rem', color: 'var(--color-text-light)' }}>Olá, {user.email?.split('@')[0]}</span>
               <button onClick={logout} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                <LogOut size={16}/> Sair
+                <LogOut size={16}/> <span className="hide-on-mobile">Sair</span>
               </button>
             </>
           ) : (
