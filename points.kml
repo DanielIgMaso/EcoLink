@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Guia EcoLink</name>
+    <description>Guia de ecopontos na cidade de Uberaba</description>
+    <Style id="icon-1899-DB4436-normal">
+      <IconStyle>
+        <color>ff3644db</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-DB4436-highlight">
+      <IconStyle>
+        <color>ff3644db</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-DB4436">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-DB4436-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-DB4436-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Coleta de Óleo</name>
+      <Placemark>
+        <name>Parque das Barrigudas</name>
+        <address>Parque das Barrigudas, Univerdecidade, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Parque das Barrigudas, Univerdecidade, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Parque das Barrigudas, Univerdecidade, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Centro de Reservação (CR) 02 Boa Vista</name>
+        <address>Rua Delfim Moreira, 762 - Boa Vista, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Delfim Moreira, 762 - Boa Vista, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Delfim Moreira, 762 - Boa Vista, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Centro de Reservação (CR) 06 Olinda</name>
+        <address>Av. Nenê Sabino, 955 - Olinda, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Av. Nenê Sabino, 955 - Olinda, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Av. Nenê Sabino, 955 - Olinda, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Escola Municipal Boa Vista</name>
+        <address>Av. Elias Cruvinel, 1040 - Boa Vista, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Av. Elias Cruvinel, 1040 - Boa Vista, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Av. Elias Cruvinel, 1040 - Boa Vista, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Escola Municipal Arthur de Melo Teixeira</name>
+        <address>Rua Sebastião Firmino de Abreu, 120 - Uberaba I, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Sebastião Firmino de Abreu, 120 - Uberaba I, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Sebastião Firmino de Abreu, 120 - Uberaba I, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Escola Municipal Olga de Oliveira</name>
+        <address>Parque das Américas, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Parque das Américas, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Parque das Américas, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Escola Municipal Professora Geni Chaves</name>
+        <address>Rua São Mateus, 486 - Abadia, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua São Mateus, 486 - Abadia, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua São Mateus, 486 - Abadia, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Escola Municipal Professora Stella Chaves</name>
+        <address>Rua Alfredo Peguine Neto, 150 - Alfredo Freire, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Alfredo Peguine Neto, 150 - Alfredo Freire, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Alfredo Peguine Neto, 150 - Alfredo Freire, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Escola Municipal Reis Júnior</name>
+        <address>Praça Vitoria, 401 - Jardim Espírito Santo, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Praça Vitoria, 401 - Jardim Espírito Santo, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Praça Vitoria, 401 - Jardim Espírito Santo, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Escola Municipal Joubert de Carvalho</name>
+        <address>Rua Adelino Jose Pinheiro, 120 - Vallim de Melo, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Adelino Jose Pinheiro, 120 - Vallim de Melo, Uberaba - MG<br>Recompensa: A cada 1L de óleo = 1 detergente]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Adelino Jose Pinheiro, 120 - Vallim de Melo, Uberaba - MG</value>
+          </Data>
+          <Data name="Recompensa">
+            <value>A cada 1L de óleo = 1 detergente</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Logística Reversa</name>
+      <Placemark>
+        <name>CETA / Parque das Barrigudas</name>
+        <address>Parque das Barrigudas - Univerdecidade, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Parque das Barrigudas - Univerdecidade, Uberaba - MG<br>Detalhes e Horários: Central CETA - Seg a Sáb, das 8h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Parque das Barrigudas - Univerdecidade, Uberaba - MG</value>
+          </Data>
+          <Data name="Detalhes e Horários">
+            <value>Central CETA - Seg a Sáb, das 8h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>ACIU</name>
+        <address>Av. Leopoldino de Oliveira, 3433 - Centro, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Av. Leopoldino de Oliveira, 3433 - Centro, Uberaba - MG<br>Detalhes e Horários: Ponto de Descarte]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Av. Leopoldino de Oliveira, 3433 - Centro, Uberaba - MG</value>
+          </Data>
+          <Data name="Detalhes e Horários">
+            <value>Ponto de Descarte</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Centro Administrativo (PMU)</name>
+        <address>Av. Dom Luiz Maria de Santana, 141 - Santa Marta, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Av. Dom Luiz Maria de Santana, 141 - Santa Marta, Uberaba - MG<br>Detalhes e Horários: Ponto de Descarte]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Av. Dom Luiz Maria de Santana, 141 - Santa Marta, Uberaba - MG</value>
+          </Data>
+          <Data name="Detalhes e Horários">
+            <value>Ponto de Descarte</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>CODAU</name>
+        <address>Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG<br>Detalhes e Horários: Praça Uberaba Shopping]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG</value>
+          </Data>
+          <Data name="Detalhes e Horários">
+            <value>Praça Uberaba Shopping</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>PROCON</name>
+        <address>Av. Leopoldino de Oliveira, 2976 - Centro, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Av. Leopoldino de Oliveira, 2976 - Centro, Uberaba - MG<br>Detalhes e Horários: Ponto de Descarte]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Av. Leopoldino de Oliveira, 2976 - Centro, Uberaba - MG</value>
+          </Data>
+          <Data name="Detalhes e Horários">
+            <value>Ponto de Descarte</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Praça Uberaba Shopping</name>
+        <address>Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG<br>Detalhes e Horários: Ponto de Descarte]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG</value>
+          </Data>
+          <Data name="Detalhes e Horários">
+            <value>Ponto de Descarte</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Bahamas</name>
+        <address>Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG<br>Detalhes e Horários: Praça Uberaba Shopping]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Av. Leopoldino de Oliveira, 5100 - Vila Olímpica, Uberaba - MG</value>
+          </Data>
+          <Data name="Detalhes e Horários">
+            <value>Praça Uberaba Shopping</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ecopontos</name>
+      <Placemark>
+        <name>Ecoponto Alfredo Freire</name>
+        <address>Rua Iracema Barreto Pires, 280 - Alfredo Freire III, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Iracema Barreto Pires, 280 - Alfredo Freire III, Uberaba - MG<br>Horário: Todos os dias, das 7h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Iracema Barreto Pires, 280 - Alfredo Freire III, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Res. Estados Unidos</name>
+        <address>Rua Alaska, 120 - Res. Estados Unidos, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Alaska, 120 - Res. Estados Unidos, Uberaba - MG<br>Horário: Todos os dias, das 7h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Alaska, 120 - Res. Estados Unidos, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Serra Dourada</name>
+        <address>Avenida Jaraguá, 810 - Jardim Uberaba, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Avenida Jaraguá, 810 - Jardim Uberaba, Uberaba - MG<br>Horário: Todos os dias, das 7h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Avenida Jaraguá, 810 - Jardim Uberaba, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Jardim Califórnia</name>
+        <address>Rua Ataliba Guaritá, 216 - Jardim Califórnia, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Ataliba Guaritá, 216 - Jardim Califórnia, Uberaba - MG<br>Horário: Todos os dias, das 7h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Ataliba Guaritá, 216 - Jardim Califórnia, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Jardim Maracanã</name>
+        <address>Rua José Tinoco, 365 - Jardim Maracanã, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua José Tinoco, 365 - Jardim Maracanã, Uberaba - MG<br>Horário: Todos os dias, das 7h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua José Tinoco, 365 - Jardim Maracanã, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Pacaembu</name>
+        <address>Rua Cláudio Talarico, 890 - Pacaembu, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Cláudio Talarico, 890 - Pacaembu, Uberaba - MG<br>Horário: Todos os dias, das 7h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Cláudio Talarico, 890 - Pacaembu, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Residencial 2000</name>
+        <address>Rua André Luiz Samuel Alves, 170 - Residencial 2000, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua André Luiz Samuel Alves, 170 - Residencial 2000, Uberaba - MG<br>Horário: Todos os dias, das 7h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua André Luiz Samuel Alves, 170 - Residencial 2000, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Valim de Melo</name>
+        <address>Rua Norma Menegaz Resende, 1222 - Conj. José Valim de Melo I, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Norma Menegaz Resende, 1222 - Conj. José Valim de Melo I, Uberaba - MG<br>Horário: Todos os dias, das 7h às 18h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Norma Menegaz Resende, 1222 - Conj. José Valim de Melo I, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 18h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Amoroso Costa</name>
+        <address>Rua Eva das Graças Oliveira Silva, 552 - Antônia Cândida I, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Eva das Graças Oliveira Silva, 552 - Antônia Cândida I, Uberaba - MG<br>Horário: Todos os dias, das 7h às 19h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Eva das Graças Oliveira Silva, 552 - Antônia Cândida I, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 19h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto São José</name>
+        <address>Rua Nelson Ciabotti, 51 - São José, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Nelson Ciabotti, 51 - São José, Uberaba - MG<br>Horário: Todos os dias, das 7h às 19h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Nelson Ciabotti, 51 - São José, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 19h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>Ecoponto Volta Grande</name>
+        <address>Rua Antônio Alves Fontes, 961 - Parque das Américas, Uberaba - MG</address>
+        <description><![CDATA[Endereço Completo: Rua Antônio Alves Fontes, 961 - Parque das Américas, Uberaba - MG<br>Horário: Todos os dias, das 7h às 19h]]></description>
+        <styleUrl>#icon-1899-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="Endereço Completo">
+            <value>Rua Antônio Alves Fontes, 961 - Parque das Américas, Uberaba - MG</value>
+          </Data>
+          <Data name="Horário">
+            <value>Todos os dias, das 7h às 19h</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

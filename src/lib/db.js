@@ -1,5 +1,5 @@
 import { db } from './firebase';
-import { collection, doc, getDocs, getDoc, setDoc, addDoc, query, where, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, doc, getDocs, getDoc, setDoc, addDoc, query, where, updateDoc, serverTimestamp, deleteDoc } from 'firebase/firestore';
 
 export const CATEGORIES = [
   { id: 'oleo', nome: 'Óleo de Cozinha', cor: '#f59e0b', icone: 'droplets' },
@@ -42,6 +42,43 @@ export async function updatePointStatus(id, approved) {
     return { success: true };
   } catch (error) {
     console.error("Erro ao atualizar ponto", error);
+    return { success: false, error };
+  }
+}
+
+export async function getPoint(id) {
+  try {
+    const docRef = doc(db, 'collectionPoints', id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() };
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Erro ao buscar ponto", error);
+    return null;
+  }
+}
+
+export async function updatePoint(id, data) {
+  try {
+    const pointRef = doc(db, 'collectionPoints', id);
+    await updateDoc(pointRef, data);
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao atualizar dados do ponto", error);
+    return { success: false, error };
+  }
+}
+
+export async function deletePoint(id) {
+  try {
+    const pointRef = doc(db, 'collectionPoints', id);
+    await deleteDoc(pointRef);
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao excluir ponto", error);
     return { success: false, error };
   }
 }
