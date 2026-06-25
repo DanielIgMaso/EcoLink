@@ -30,6 +30,30 @@ export default function NovoPontoPage() {
     });
   }, []);
 
+  useEffect(() => {
+    if (position) {
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.lat}&lon=${position.lng}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.address) {
+            const addr = data.address;
+            const rua = addr.road || addr.pedestrian || '';
+            const numero = addr.house_number ? `, ${addr.house_number}` : '';
+            const novoEndereco = `${rua}${numero}`.trim();
+            const novoBairro = addr.suburb || addr.neighbourhood || addr.village || '';
+            
+            setForm(prev => ({
+              ...prev,
+              endereco: novoEndereco || prev.endereco,
+              bairro: novoBairro || prev.bairro
+            }));
+            setStatus({ type: 'success', msg: 'Endereço preenchido automaticamente pelo mapa! Verifique os dados abaixo.' });
+          }
+        })
+        .catch(err => console.error("Erro ao buscar endereço:", err));
+    }
+  }, [position]);
+
   if (loading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>Carregando...</div>;
 
   if (!user || (role !== 'PONTO' && role !== 'ADMIN')) {
