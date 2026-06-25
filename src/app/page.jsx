@@ -10,7 +10,7 @@ export default function Home() {
             📍 Uberaba, Minas Gerais
           </span>
           <h1 style={{ fontSize: '4rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: 1.1 }}>
-            Descarte Consciente,<br/>
+            Descarte Consciente,<br />
             <span style={{ color: '#99f6e4' }}>Cidade Mais Verde</span>
           </h1>
           <p style={{ fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto 2.5rem', opacity: 0.9 }}>
@@ -18,10 +18,10 @@ export default function Home() {
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
             <Link href="/mapa" className="btn" style={{ background: 'white', color: 'var(--color-primary-dark)' }}>
-              <Map size={20}/> Ver o Mapa
+              <Map size={20} /> Ver o Mapa
             </Link>
             <Link href="/pontos" className="btn" style={{ border: '2px solid rgba(255,255,255,0.5)', color: 'white' }}>
-              <Search size={20}/> Buscar Pontos
+              <Search size={20} /> Buscar Pontos
             </Link>
           </div>
         </div>
@@ -33,8 +33,8 @@ export default function Home() {
           <p style={{ color: 'var(--color-text-light)' }}>Conheça as categorias aceitas nos pontos de coleta cadastrados.</p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
-          
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%,400px), 1fr))', gap: '2rem' }}>
+
           <div className="glass-card">
             <div style={{ width: '60px', height: '60px', borderRadius: '16px', background: 'var(--cat-oil)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <Droplets color="white" size={32} />
