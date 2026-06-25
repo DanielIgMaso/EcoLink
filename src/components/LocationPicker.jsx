@@ -85,18 +85,24 @@ export default function LocationPicker({ position, setPosition, existingPoints =
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', top: '10px', left: '50px', zIndex: 400 }}>
-        <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.5rem', background: 'white', padding: '0.25rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', background: 'white', padding: '0.25rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
           <input 
             type="text" 
             placeholder="Buscar rua, bairro..." 
             value={searchInput} 
             onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSearch(e);
+              }
+            }}
             style={{ padding: '0.5rem', border: 'none', outline: 'none', borderRadius: '4px', minWidth: '220px', fontFamily: 'Outfit' }}
           />
-          <button type="submit" style={{ padding: '0.5rem 1rem', background: '#22c55e', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 600, fontFamily: 'Outfit' }}>
+          <button type="button" onClick={handleSearch} style={{ padding: '0.5rem 1rem', background: '#22c55e', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 600, fontFamily: 'Outfit' }}>
             Buscar
           </button>
-        </form>
+        </div>
       </div>
 
       <MapContainer 
