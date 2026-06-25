@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '70px' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-dark)' }}>
           <Image 
-            src="/logoEcoLinkExtensa.png" 
+            src="/logoEcolinkExtensa.png" 
             alt="Logo oficial do EcoLink" 
             width={437} 
             height={139} 
