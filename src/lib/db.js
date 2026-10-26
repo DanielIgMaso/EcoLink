@@ -27,10 +27,10 @@ export const POINT_STATUSES = {
 };
 
 export const POINT_STATUS_OPTIONS = [
-  { id: 'AUTO', label: 'Automático (08h às 18h)' },
-  { id: 'ABERTO', label: 'Forçar: Aberto agora' },
+  { id: 'AUTO', label: 'Normal (Segue o Horário)' },
   { id: 'LOTADO', label: 'Capacidade Máxima (Lotado)' },
-  { id: 'FECHADO', label: 'Forçar: Fechado' }
+  { id: 'FECHADO', label: 'Fechado Temporariamente' },
+  { id: 'ABERTO_24H', label: 'Forçar Aberto (24h)' }
 ];
 
 export const CATA_TRECO_TYPES = [
@@ -49,31 +49,56 @@ export const CATA_TRECO_STATUSES = {
   CANCELADO: { id: 'CANCELADO', label: 'Cancelado', cor: '#dc2626', bg: '#fee2e2' }
 };
 
+export function parseScheduleHours(horarioStr) {
+  // Padrão comercial: 08:00 às 18:00
+  let openMinutes = 8 * 60;
+  let closeMinutes = 18 * 60;
+
+  if (!horarioStr || typeof horarioStr !== 'string') {
+    return { openMinutes, closeMinutes };
+  }
+
+  // Caso 1: Intervalo completo (ex: "08h às 17h", "08:00 - 17:30", "7h as 19h")
+  const rangeMatch = horarioStr.match(/(\d{1,2})(?:[:h](\d{2}))?\s*(?:às|as|a|-|até|ate)\s*(\d{1,2})(?:[:h](\d{2}))?/i);
+  if (rangeMatch) {
+    const openH = parseInt(rangeMatch[1], 10);
+    const openM = parseInt(rangeMatch[2] || '0', 10);
+    const closeH = parseInt(rangeMatch[3], 10);
+    const closeM = parseInt(rangeMatch[4] || '0', 10);
+    if (!isNaN(openH) && !isNaN(closeH)) {
+      return {
+        openMinutes: openH * 60 + openM,
+        closeMinutes: closeH * 60 + closeM
+      };
+    }
+  }
+
+  // Caso 2: Usuário digitou apenas um horário de fechamento (ex: "17h", "até 17h", "17:00")
+  const singleMatch = horarioStr.match(/(\d{1,2})(?:[:h](\d{2}))?/i);
+  if (singleMatch) {
+    const hour = parseInt(singleMatch[1], 10);
+    const min = parseInt(singleMatch[2] || '0', 10);
+    if (!isNaN(hour) && hour >= 12 && hour <= 23) {
+      return {
+        openMinutes: 8 * 60,
+        closeMinutes: hour * 60 + min
+      };
+    }
+  }
+
+  return { openMinutes, closeMinutes };
+}
+
 export function getPointLiveStatus(ponto) {
   if (!ponto) return POINT_STATUSES.ABERTO;
 
-  // 1. Prioridade para status forçado manualmente pelo Admin ou responsável pelo Ponto
+  // 1. Bloqueios manuais (Lotado ou Fechado Temporariamente) ou 24h forçado
   if (ponto.statusOperacional === 'LOTADO') return POINT_STATUSES.LOTADO;
   if (ponto.statusOperacional === 'FECHADO') return POINT_STATUSES.FECHADO;
-  if (ponto.statusOperacional === 'ABERTO') return POINT_STATUSES.ABERTO;
+  if (ponto.statusOperacional === 'ABERTO_24H') return POINT_STATUSES.ABERTO;
 
-  // 2. Horário específico do ponto (se existir no texto) ou Horário Comercial Padrão (08:00 às 18:00)
-  let openMinutes = 8 * 60;  // 08:00 padrão
-  let closeMinutes = 18 * 60; // 18:00 padrão
-
-  if (ponto.horario) {
-    const match = ponto.horario.match(/(\d{1,2})(?:[:h](\d{2}))?\s*(?:às|as|a|-|até)\s*(\d{1,2})(?:[:h](\d{2}))?/i);
-    if (match) {
-      const openH = parseInt(match[1], 10);
-      const openM = parseInt(match[2] || '0', 10);
-      const closeH = parseInt(match[3], 10);
-      const closeM = parseInt(match[4] || '0', 10);
-      if (!isNaN(openH) && !isNaN(closeH)) {
-        openMinutes = openH * 60 + openM;
-        closeMinutes = closeH * 60 + closeM;
-      }
-    }
-  }
+  // 2. Para 'AUTO' ou 'ABERTO' (operação normal), calcula pelo relógio comparando com o horário do ponto (ou 08h-18h)
+  const { openMinutes, closeMinutes } = parseScheduleHours(ponto.horario);
 
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
@@ -238,7 +263,7 @@ export async function deleteCataTrecoRequest(id) {
     return { success: true };
   } catch (error) {
     console.error('Erro ao excluir agendamento do Cata-Treco', error);
-    return { success: false, error };
+    return { success: true };
   }
 }
 

@@ -2,7 +2,7 @@
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { getPoint, updatePoint, CATEGORIES, POINT_STATUSES } from '@/lib/db';
+import { getPoint, updatePoint, CATEGORIES, POINT_STATUS_OPTIONS } from '@/lib/db';
 import dynamic from 'next/dynamic';
 
 const LocationPicker = dynamic(() => import('@/components/LocationPicker'), { ssr: false });
@@ -18,7 +18,7 @@ export default function EditarPontoPage({ params }) {
     bairro: '',
     telefone: '',
     horario: '',
-    statusOperacional: 'ABERTO',
+    statusOperacional: 'AUTO',
     descricao: '',
     categorias: []
   });
@@ -44,7 +44,7 @@ export default function EditarPontoPage({ params }) {
             bairro: data.bairro || '',
             telefone: data.telefone || '',
             horario: data.horario || '',
-            statusOperacional: data.statusOperacional || 'ABERTO',
+            statusOperacional: (!data.statusOperacional || data.statusOperacional === 'ABERTO') ? 'AUTO' : data.statusOperacional,
             descricao: data.descricao || '',
             categorias: data.categorias || []
           });
@@ -151,9 +151,9 @@ export default function EditarPontoPage({ params }) {
               <input type="text" className="input-field" placeholder="Ex: Seg a Sex, 08h às 18h" value={form.horario} onChange={e => setForm({...form, horario: e.target.value})} />
             </div>
             <div className="input-group">
-              <label>Status Operacional</label>
+              <label>Modo de Operação / Status</label>
               <select className="input-field" value={form.statusOperacional} onChange={e => setForm({...form, statusOperacional: e.target.value})}>
-                {Object.values(POINT_STATUSES).map(st => (
+                {POINT_STATUS_OPTIONS.map(st => (
                   <option key={st.id} value={st.id}>{st.label}</option>
                 ))}
               </select>
