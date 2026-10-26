@@ -18,7 +18,8 @@ export const CATEGORIES = [
   { id: 'ecoponto', nome: 'Ecopontos Municipais', cor: '#22c55e', icone: 'map-pin' }
 ];
 
-export const DEFAULT_BUSINESS_HOURS_TEXT = 'Seg a Sex, 08h às 18h (Horário Comercial)';
+export const DEFAULT_OPEN_TIME = '08:00';
+export const DEFAULT_CLOSE_TIME = '18:00';
 
 export const POINT_STATUSES = {
   ABERTO: { id: 'ABERTO', label: 'Aberto agora', cor: '#16a34a', bg: '#dcfce7', dot: '#22c55e' },
@@ -49,44 +50,10 @@ export const CATA_TRECO_STATUSES = {
   CANCELADO: { id: 'CANCELADO', label: 'Cancelado', cor: '#dc2626', bg: '#fee2e2' }
 };
 
-export function parseScheduleHours(horarioStr) {
-  // Padrão comercial: 08:00 às 18:00
-  let openMinutes = 8 * 60;
-  let closeMinutes = 18 * 60;
-
-  if (!horarioStr || typeof horarioStr !== 'string') {
-    return { openMinutes, closeMinutes };
-  }
-
-  // Caso 1: Intervalo completo (ex: "08h às 17h", "08:00 - 17:30", "7h as 19h")
-  const rangeMatch = horarioStr.match(/(\d{1,2})(?:[:h](\d{2}))?\s*(?:às|as|a|-|até|ate)\s*(\d{1,2})(?:[:h](\d{2}))?/i);
-  if (rangeMatch) {
-    const openH = parseInt(rangeMatch[1], 10);
-    const openM = parseInt(rangeMatch[2] || '0', 10);
-    const closeH = parseInt(rangeMatch[3], 10);
-    const closeM = parseInt(rangeMatch[4] || '0', 10);
-    if (!isNaN(openH) && !isNaN(closeH)) {
-      return {
-        openMinutes: openH * 60 + openM,
-        closeMinutes: closeH * 60 + closeM
-      };
-    }
-  }
-
-  // Caso 2: Usuário digitou apenas um horário de fechamento (ex: "17h", "até 17h", "17:00")
-  const singleMatch = horarioStr.match(/(\d{1,2})(?:[:h](\d{2}))?/i);
-  if (singleMatch) {
-    const hour = parseInt(singleMatch[1], 10);
-    const min = parseInt(singleMatch[2] || '0', 10);
-    if (!isNaN(hour) && hour >= 12 && hour <= 23) {
-      return {
-        openMinutes: 8 * 60,
-        closeMinutes: hour * 60 + min
-      };
-    }
-  }
-
-  return { openMinutes, closeMinutes };
+export function formatPointSchedule(ponto) {
+  const open = ponto?.horarioAbertura || DEFAULT_OPEN_TIME;
+  const close = ponto?.horarioFechamento || DEFAULT_CLOSE_TIME;
+  return `${open} às ${close}`;
 }
 
 export function getPointLiveStatus(ponto) {
@@ -97,8 +64,15 @@ export function getPointLiveStatus(ponto) {
   if (ponto.statusOperacional === 'FECHADO') return POINT_STATUSES.FECHADO;
   if (ponto.statusOperacional === 'ABERTO_24H') return POINT_STATUSES.ABERTO;
 
-  // 2. Para 'AUTO' ou 'ABERTO' (operação normal), calcula pelo relógio comparando com o horário do ponto (ou 08h-18h)
-  const { openMinutes, closeMinutes } = parseScheduleHours(ponto.horario);
+  // 2. Usa os 2 campos dedicados (horarioAbertura e horarioFechamento) ou o padrão 08:00 e 18:00
+  const openStr = ponto.horarioAbertura || DEFAULT_OPEN_TIME;
+  const closeStr = ponto.horarioFechamento || DEFAULT_CLOSE_TIME;
+
+  const [openH, openM] = openStr.split(':').map(Number);
+  const [closeH, closeM] = closeStr.split(':').map(Number);
+
+  const openMinutes = (isNaN(openH) ? 8 : openH) * 60 + (isNaN(openM) ? 0 : openM);
+  const closeMinutes = (isNaN(closeH) ? 18 : closeH) * 60 + (isNaN(closeM) ? 0 : closeM);
 
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
@@ -126,9 +100,13 @@ export async function getPoints(approvedOnly = true) {
 
 export async function addPoint(data) {
   try {
+    const horarioAbertura = data.horarioAbertura || DEFAULT_OPEN_TIME;
+    const horarioFechamento = data.horarioFechamento || DEFAULT_CLOSE_TIME;
     const docRef = await addDoc(collection(db, 'collectionPoints'), {
       statusOperacional: 'AUTO',
-      horario: data.horario || DEFAULT_BUSINESS_HOURS_TEXT,
+      horarioAbertura,
+      horarioFechamento,
+      horario: `${horarioAbertura} às ${horarioFechamento}`,
       ...data,
       approved: false,
       createdAt: serverTimestamp()
@@ -185,7 +163,14 @@ export async function getPoint(id) {
 export async function updatePoint(id, data) {
   try {
     const pointRef = doc(db, 'collectionPoints', id);
-    await updateDoc(pointRef, data);
+    const horarioAbertura = data.horarioAbertura || DEFAULT_OPEN_TIME;
+    const horarioFechamento = data.horarioFechamento || DEFAULT_CLOSE_TIME;
+    await updateDoc(pointRef, {
+      ...data,
+      horarioAbertura,
+      horarioFechamento,
+      horario: `${horarioAbertura} às ${horarioFechamento}`
+    });
     return { success: true };
   } catch (error) {
     console.error('Erro ao atualizar dados do ponto', error);
@@ -263,7 +248,7 @@ export async function deleteCataTrecoRequest(id) {
     return { success: true };
   } catch (error) {
     console.error('Erro ao excluir agendamento do Cata-Treco', error);
-    return { success: true };
+    return { success: false, error };
   }
 }
 

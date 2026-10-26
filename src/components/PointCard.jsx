@@ -4,7 +4,7 @@ import { MapPin, Clock, Phone, Edit, Trash2, Activity } from 'lucide-react';
 import {
   CATEGORIES,
   POINT_STATUS_OPTIONS,
-  DEFAULT_BUSINESS_HOURS_TEXT,
+  formatPointSchedule,
   getPointLiveStatus,
   updatePointOperationalStatus,
   deletePoint
@@ -90,7 +90,7 @@ export default function PointCard({ ponto, onUpdate }) {
 
       <div style={{ display: 'flex', gap: '0.5rem', color: 'var(--color-text-light)', fontSize: '0.9rem', marginBottom: '0.5rem', alignItems: 'center' }}>
         <Clock size={16} color="var(--color-primary)" style={{ flexShrink: 0 }}/>
-        <span>{ponto.horario || DEFAULT_BUSINESS_HOURS_TEXT}</span>
+        <span>{formatPointSchedule(ponto)}</span>
       </div>
 
       {ponto.telefone && (

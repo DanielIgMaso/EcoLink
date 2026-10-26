@@ -2,7 +2,13 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { addPoint, CATEGORIES, POINT_STATUS_OPTIONS } from '@/lib/db';
+import {
+  addPoint,
+  CATEGORIES,
+  POINT_STATUS_OPTIONS,
+  DEFAULT_OPEN_TIME,
+  DEFAULT_CLOSE_TIME
+} from '@/lib/db';
 import dynamic from 'next/dynamic';
 
 const LocationPicker = dynamic(() => import('@/components/LocationPicker'), { ssr: false });
@@ -16,7 +22,8 @@ export default function NovoPontoPage() {
     endereco: '',
     bairro: '',
     telefone: '',
-    horario: '',
+    horarioAbertura: DEFAULT_OPEN_TIME,
+    horarioFechamento: DEFAULT_CLOSE_TIME,
     statusOperacional: 'AUTO',
     descricao: '',
     categorias: []
@@ -135,17 +142,33 @@ export default function NovoPontoPage() {
             {!position && <span style={{ color: '#ef4444', fontSize: '0.85rem', display: 'block', marginTop: '0.5rem' }}>* Por favor, clique no mapa para definir a localização.</span>}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '1rem' }}>
             <div className="input-group">
               <label>Telefone</label>
               <input type="text" className="input-field" value={form.telefone} onChange={e => setForm({...form, telefone: e.target.value})} />
             </div>
             <div className="input-group">
-              <label>Horário de Funcionamento</label>
-              <input type="text" className="input-field" placeholder="Ex: Seg a Sex, 08h às 18h" value={form.horario} onChange={e => setForm({...form, horario: e.target.value})} />
+              <label>Horário de Abertura *</label>
+              <input
+                type="time"
+                required
+                className="input-field"
+                value={form.horarioAbertura}
+                onChange={e => setForm({...form, horarioAbertura: e.target.value})}
+              />
             </div>
             <div className="input-group">
-              <label>Modo de Operação / Status</label>
+              <label>Horário de Fechamento *</label>
+              <input
+                type="time"
+                required
+                className="input-field"
+                value={form.horarioFechamento}
+                onChange={e => setForm({...form, horarioFechamento: e.target.value})}
+              />
+            </div>
+            <div className="input-group">
+              <label>Modo de Operação</label>
               <select className="input-field" value={form.statusOperacional} onChange={e => setForm({...form, statusOperacional: e.target.value})}>
                 {POINT_STATUS_OPTIONS.map(st => (
                   <option key={st.id} value={st.id}>{st.label}</option>
