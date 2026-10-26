@@ -1,7 +1,14 @@
 'use client';
 import { useState } from 'react';
 import { MapPin, Clock, Phone, Edit, Trash2, Activity } from 'lucide-react';
-import { CATEGORIES, POINT_STATUSES, getPointLiveStatus, updatePointOperationalStatus, deletePoint } from '@/lib/db';
+import {
+  CATEGORIES,
+  POINT_STATUS_OPTIONS,
+  DEFAULT_BUSINESS_HOURS_TEXT,
+  getPointLiveStatus,
+  updatePointOperationalStatus,
+  deletePoint
+} from '@/lib/db';
 import { useAuth } from '@/lib/auth';
 import Link from 'next/link';
 
@@ -80,12 +87,12 @@ export default function PointCard({ ponto, onUpdate }) {
         <MapPin size={16} color="var(--color-primary)" style={{ marginTop: '3px', flexShrink: 0 }}/>
         <span>{ponto.endereco} {ponto.bairro && `, ${ponto.bairro}`}</span>
       </div>
-      {ponto.horario && (
-        <div style={{ display: 'flex', gap: '0.5rem', color: 'var(--color-text-light)', fontSize: '0.9rem', marginBottom: '0.5rem', alignItems: 'center' }}>
-          <Clock size={16} color="var(--color-primary)" style={{ flexShrink: 0 }}/>
-          <span>{ponto.horario}</span>
-        </div>
-      )}
+
+      <div style={{ display: 'flex', gap: '0.5rem', color: 'var(--color-text-light)', fontSize: '0.9rem', marginBottom: '0.5rem', alignItems: 'center' }}>
+        <Clock size={16} color="var(--color-primary)" style={{ flexShrink: 0 }}/>
+        <span>{ponto.horario || DEFAULT_BUSINESS_HOURS_TEXT}</span>
+      </div>
+
       {ponto.telefone && (
         <div style={{ display: 'flex', gap: '0.5rem', color: 'var(--color-text-light)', fontSize: '0.9rem', marginBottom: '1rem', alignItems: 'center' }}>
           <Phone size={16} color="var(--color-primary)" style={{ flexShrink: 0 }}/>
@@ -100,11 +107,11 @@ export default function PointCard({ ponto, onUpdate }) {
         <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px dashed #e2e8f0', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text-light)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-              <Activity size={13} /> Status rápido:
+              <Activity size={13} /> Modo de status:
             </span>
             <select
               disabled={updatingStatus}
-              value={localStatus || ponto.statusOperacional || 'ABERTO'}
+              value={localStatus || ponto.statusOperacional || 'AUTO'}
               onChange={(e) => handleStatusChange(e.target.value)}
               style={{
                 fontSize: '0.8rem',
@@ -116,7 +123,7 @@ export default function PointCard({ ponto, onUpdate }) {
                 cursor: 'pointer'
               }}
             >
-              {Object.values(POINT_STATUSES).map(st => (
+              {POINT_STATUS_OPTIONS.map(st => (
                 <option key={st.id} value={st.id}>{st.label}</option>
               ))}
             </select>

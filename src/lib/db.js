@@ -18,11 +18,20 @@ export const CATEGORIES = [
   { id: 'ecoponto', nome: 'Ecopontos Municipais', cor: '#22c55e', icone: 'map-pin' }
 ];
 
+export const DEFAULT_BUSINESS_HOURS_TEXT = 'Seg a Sex, 08h às 18h (Horário Comercial)';
+
 export const POINT_STATUSES = {
   ABERTO: { id: 'ABERTO', label: 'Aberto agora', cor: '#16a34a', bg: '#dcfce7', dot: '#22c55e' },
   LOTADO: { id: 'LOTADO', label: 'Capacidade Máxima', cor: '#d97706', bg: '#fef3c7', dot: '#f59e0b' },
   FECHADO: { id: 'FECHADO', label: 'Fechado', cor: '#dc2626', bg: '#fee2e2', dot: '#ef4444' }
 };
+
+export const POINT_STATUS_OPTIONS = [
+  { id: 'AUTO', label: 'Automático (08h às 18h)' },
+  { id: 'ABERTO', label: 'Forçar: Aberto agora' },
+  { id: 'LOTADO', label: 'Capacidade Máxima (Lotado)' },
+  { id: 'FECHADO', label: 'Forçar: Fechado' }
+];
 
 export const CATA_TRECO_TYPES = [
   { id: 'moveis', nome: 'Móveis (Sofá, Armário, Mesa)' },
@@ -42,26 +51,38 @@ export const CATA_TRECO_STATUSES = {
 
 export function getPointLiveStatus(ponto) {
   if (!ponto) return POINT_STATUSES.ABERTO;
+
+  // 1. Prioridade para status forçado manualmente pelo Admin ou responsável pelo Ponto
   if (ponto.statusOperacional === 'LOTADO') return POINT_STATUSES.LOTADO;
   if (ponto.statusOperacional === 'FECHADO') return POINT_STATUSES.FECHADO;
   if (ponto.statusOperacional === 'ABERTO') return POINT_STATUSES.ABERTO;
 
-  // Cálculo automático opcional caso tenha horário de abertura e fechamento (formato HH:MM)
-  if (ponto.horarioAbertura && ponto.horarioFechamento) {
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-    const [openH, openM] = ponto.horarioAbertura.split(':').map(Number);
-    const [closeH, closeM] = ponto.horarioFechamento.split(':').map(Number);
-    if (!isNaN(openH) && !isNaN(closeH)) {
-      const openMinutes = openH * 60 + (openM || 0);
-      const closeMinutes = closeH * 60 + (closeM || 0);
-      if (currentMinutes < openMinutes || currentMinutes > closeMinutes) {
-        return POINT_STATUSES.FECHADO;
+  // 2. Horário específico do ponto (se existir no texto) ou Horário Comercial Padrão (08:00 às 18:00)
+  let openMinutes = 8 * 60;  // 08:00 padrão
+  let closeMinutes = 18 * 60; // 18:00 padrão
+
+  if (ponto.horario) {
+    const match = ponto.horario.match(/(\d{1,2})(?:[:h](\d{2}))?\s*(?:às|as|a|-|até)\s*(\d{1,2})(?:[:h](\d{2}))?/i);
+    if (match) {
+      const openH = parseInt(match[1], 10);
+      const openM = parseInt(match[2] || '0', 10);
+      const closeH = parseInt(match[3], 10);
+      const closeM = parseInt(match[4] || '0', 10);
+      if (!isNaN(openH) && !isNaN(closeH)) {
+        openMinutes = openH * 60 + openM;
+        closeMinutes = closeH * 60 + closeM;
       }
     }
   }
 
-  return POINT_STATUSES.ABERTO;
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  if (currentMinutes >= openMinutes && currentMinutes < closeMinutes) {
+    return POINT_STATUSES.ABERTO;
+  }
+
+  return POINT_STATUSES.FECHADO;
 }
 
 export async function getPoints(approvedOnly = true) {
@@ -81,7 +102,8 @@ export async function getPoints(approvedOnly = true) {
 export async function addPoint(data) {
   try {
     const docRef = await addDoc(collection(db, 'collectionPoints'), {
-      statusOperacional: 'ABERTO',
+      statusOperacional: 'AUTO',
+      horario: data.horario || DEFAULT_BUSINESS_HOURS_TEXT,
       ...data,
       approved: false,
       createdAt: serverTimestamp()

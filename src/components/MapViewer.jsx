@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { CATEGORIES, getPointLiveStatus } from '@/lib/db';
+import { CATEGORIES, DEFAULT_BUSINESS_HOURS_TEXT, getPointLiveStatus } from '@/lib/db';
 
 export default function MapViewer({ points }) {
   const [mounted, setMounted] = useState(false);
@@ -81,7 +81,7 @@ export default function MapViewer({ points }) {
                 </span>
 
                 {ponto.telefone && <div style={{ fontSize: '0.85rem', marginTop: '0.3rem' }}>📞 {ponto.telefone}</div>}
-                {ponto.horario && <div style={{ fontSize: '0.85rem', marginTop: '0.3rem' }}>⏰ {ponto.horario}</div>}
+                <div style={{ fontSize: '0.85rem', marginTop: '0.3rem' }}>⏰ {ponto.horario || DEFAULT_BUSINESS_HOURS_TEXT}</div>
 
                 {ponto.categorias && ponto.categorias.length > 0 && (
                   <div style={{ fontSize: '0.85rem', marginTop: '0.3rem', color: 'var(--color-primary-dark)', fontWeight: 600 }}>
