@@ -18,6 +18,17 @@ export const CATEGORIES = [
   { id: 'ecoponto', nome: 'Ecopontos Municipais', cor: '#22c55e', icone: 'map-pin' }
 ];
 
+export const DAYS_OF_WEEK = [
+  { id: 0, short: 'Dom', nome: 'Domingo' },
+  { id: 1, short: 'Seg', nome: 'Segunda' },
+  { id: 2, short: 'Ter', nome: 'Terça' },
+  { id: 3, short: 'Qua', nome: 'Quarta' },
+  { id: 4, short: 'Qui', nome: 'Quinta' },
+  { id: 5, short: 'Sex', nome: 'Sexta' },
+  { id: 6, short: 'Sáb', nome: 'Sábado' }
+];
+
+export const DEFAULT_OPEN_DAYS = [1, 2, 3, 4, 5]; // Seg a Sex por padrão
 export const DEFAULT_OPEN_TIME = '08:00';
 export const DEFAULT_CLOSE_TIME = '18:00';
 
@@ -28,7 +39,7 @@ export const POINT_STATUSES = {
 };
 
 export const POINT_STATUS_OPTIONS = [
-  { id: 'AUTO', label: 'Normal (Segue o Horário)' },
+  { id: 'AUTO', label: 'Normal (Segue Dias e Horário)' },
   { id: 'LOTADO', label: 'Capacidade Máxima (Lotado)' },
   { id: 'FECHADO', label: 'Fechado Temporariamente' },
   { id: 'ABERTO_24H', label: 'Forçar Aberto (24h)' }
@@ -50,10 +61,28 @@ export const CATA_TRECO_STATUSES = {
   CANCELADO: { id: 'CANCELADO', label: 'Cancelado', cor: '#dc2626', bg: '#fee2e2' }
 };
 
+export function formatPointDays(diasFuncionamento) {
+  const days = Array.isArray(diasFuncionamento) && diasFuncionamento.length > 0
+    ? [...diasFuncionamento].map(Number).sort((a, b) => a - b)
+    : DEFAULT_OPEN_DAYS;
+
+  const key = days.join(',');
+  if (key === '1,2,3,4,5') return 'Seg a Sex';
+  if (key === '1,2,3,4,5,6') return 'Seg a Sáb';
+  if (key === '0,1,2,3,4,5,6') return 'Todos os dias';
+  if (key === '0,6') return 'Finais de semana';
+
+  return days
+    .map(dId => DAYS_OF_WEEK.find(d => d.id === dId)?.short)
+    .filter(Boolean)
+    .join(', ');
+}
+
 export function formatPointSchedule(ponto) {
+  const daysText = formatPointDays(ponto?.diasFuncionamento);
   const open = ponto?.horarioAbertura || DEFAULT_OPEN_TIME;
   const close = ponto?.horarioFechamento || DEFAULT_CLOSE_TIME;
-  return `${open} às ${close}`;
+  return `${daysText} • ${open} às ${close}`;
 }
 
 export function getPointLiveStatus(ponto) {
@@ -64,7 +93,18 @@ export function getPointLiveStatus(ponto) {
   if (ponto.statusOperacional === 'FECHADO') return POINT_STATUSES.FECHADO;
   if (ponto.statusOperacional === 'ABERTO_24H') return POINT_STATUSES.ABERTO;
 
-  // 2. Usa os 2 campos dedicados (horarioAbertura e horarioFechamento) ou o padrão 08:00 e 18:00
+  // 2. Verifica se o ponto abre no dia da semana atual (0 = Dom ... 6 = Sáb)
+  const now = new Date();
+  const currentDay = now.getDay();
+  const openDays = Array.isArray(ponto.diasFuncionamento) && ponto.diasFuncionamento.length > 0
+    ? ponto.diasFuncionamento.map(Number)
+    : DEFAULT_OPEN_DAYS;
+
+  if (!openDays.includes(currentDay)) {
+    return POINT_STATUSES.FECHADO;
+  }
+
+  // 3. Verifica se o horário atual está entre horarioAbertura e horarioFechamento
   const openStr = ponto.horarioAbertura || DEFAULT_OPEN_TIME;
   const closeStr = ponto.horarioFechamento || DEFAULT_CLOSE_TIME;
 
@@ -73,8 +113,6 @@ export function getPointLiveStatus(ponto) {
 
   const openMinutes = (isNaN(openH) ? 8 : openH) * 60 + (isNaN(openM) ? 0 : openM);
   const closeMinutes = (isNaN(closeH) ? 18 : closeH) * 60 + (isNaN(closeM) ? 0 : closeM);
-
-  const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
   if (currentMinutes >= openMinutes && currentMinutes < closeMinutes) {
@@ -100,13 +138,17 @@ export async function getPoints(approvedOnly = true) {
 
 export async function addPoint(data) {
   try {
+    const diasFuncionamento = Array.isArray(data.diasFuncionamento) && data.diasFuncionamento.length > 0
+      ? data.diasFuncionamento
+      : DEFAULT_OPEN_DAYS;
     const horarioAbertura = data.horarioAbertura || DEFAULT_OPEN_TIME;
     const horarioFechamento = data.horarioFechamento || DEFAULT_CLOSE_TIME;
     const docRef = await addDoc(collection(db, 'collectionPoints'), {
       statusOperacional: 'AUTO',
+      diasFuncionamento,
       horarioAbertura,
       horarioFechamento,
-      horario: `${horarioAbertura} às ${horarioFechamento}`,
+      horario: `${formatPointDays(diasFuncionamento)} • ${horarioAbertura} às ${horarioFechamento}`,
       ...data,
       approved: false,
       createdAt: serverTimestamp()
@@ -163,13 +205,17 @@ export async function getPoint(id) {
 export async function updatePoint(id, data) {
   try {
     const pointRef = doc(db, 'collectionPoints', id);
+    const diasFuncionamento = Array.isArray(data.diasFuncionamento) && data.diasFuncionamento.length > 0
+      ? data.diasFuncionamento
+      : DEFAULT_OPEN_DAYS;
     const horarioAbertura = data.horarioAbertura || DEFAULT_OPEN_TIME;
     const horarioFechamento = data.horarioFechamento || DEFAULT_CLOSE_TIME;
     await updateDoc(pointRef, {
       ...data,
+      diasFuncionamento,
       horarioAbertura,
       horarioFechamento,
-      horario: `${horarioAbertura} às ${horarioFechamento}`
+      horario: `${formatPointDays(diasFuncionamento)} • ${horarioAbertura} às ${horarioFechamento}`
     });
     return { success: true };
   } catch (error) {

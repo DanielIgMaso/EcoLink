@@ -7,6 +7,8 @@ import {
   updatePoint,
   CATEGORIES,
   POINT_STATUS_OPTIONS,
+  DAYS_OF_WEEK,
+  DEFAULT_OPEN_DAYS,
   DEFAULT_OPEN_TIME,
   DEFAULT_CLOSE_TIME
 } from '@/lib/db';
@@ -24,6 +26,7 @@ export default function EditarPontoPage({ params }) {
     endereco: '',
     bairro: '',
     telefone: '',
+    diasFuncionamento: DEFAULT_OPEN_DAYS,
     horarioAbertura: DEFAULT_OPEN_TIME,
     horarioFechamento: DEFAULT_CLOSE_TIME,
     statusOperacional: 'AUTO',
@@ -51,6 +54,9 @@ export default function EditarPontoPage({ params }) {
             endereco: data.endereco || '',
             bairro: data.bairro || '',
             telefone: data.telefone || '',
+            diasFuncionamento: Array.isArray(data.diasFuncionamento) && data.diasFuncionamento.length > 0
+              ? data.diasFuncionamento.map(Number)
+              : DEFAULT_OPEN_DAYS,
             horarioAbertura: data.horarioAbertura || DEFAULT_OPEN_TIME,
             horarioFechamento: data.horarioFechamento || DEFAULT_CLOSE_TIME,
             statusOperacional: (!data.statusOperacional || data.statusOperacional === 'ABERTO') ? 'AUTO' : data.statusOperacional,
@@ -110,10 +116,19 @@ export default function EditarPontoPage({ params }) {
     }));
   };
 
+  const toggleDay = (dayId) => {
+    setForm(prev => {
+      const current = prev.diasFuncionamento || [];
+      const exists = current.includes(dayId);
+      const next = exists ? current.filter(d => d !== dayId) : [...current, dayId].sort((a, b) => a - b);
+      return { ...prev, diasFuncionamento: next };
+    });
+  };
+
   return (
     <div className="container" style={{ padding: '3rem 1.5rem', maxWidth: '800px' }}>
       <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Editar Ponto de Coleta</h1>
-      <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Atualize os dados, o horário de abertura/fechamento e a localização no mapa.</p>
+      <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Atualize os dados, os dias e horários de funcionamento e a localização no mapa.</p>
 
       {status && (
         <div style={{
@@ -148,6 +163,67 @@ export default function EditarPontoPage({ params }) {
             <p style={{ fontSize: '0.85rem', color: 'var(--color-text-light)', marginBottom: '0.5rem' }}>Arraste o mapa e clique no local exato do seu ecoponto. Os pontos coloridos já estão cadastrados.</p>
             <LocationPicker position={position} setPosition={setPosition} existingPoints={existingPoints} />
             {!position && <span style={{ color: '#ef4444', fontSize: '0.85rem', display: 'block', marginTop: '0.5rem' }}>* Por favor, clique no mapa para definir a localização.</span>}
+          </div>
+
+          {/* Seleção de Dias de Funcionamento */}
+          <div className="input-group">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              <label style={{ marginBottom: 0 }}>Dias de Funcionamento *</label>
+              <div style={{ display: 'flex', gap: '0.4rem' }}>
+                <button
+                  type="button"
+                  onClick={() => setForm(prev => ({ ...prev, diasFuncionamento: [1, 2, 3, 4, 5] }))}
+                  style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#f8fafc', cursor: 'pointer', fontWeight: 600 }}
+                >
+                  Seg–Sex
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setForm(prev => ({ ...prev, diasFuncionamento: [1, 2, 3, 4, 5, 6] }))}
+                  style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#f8fafc', cursor: 'pointer', fontWeight: 600 }}
+                >
+                  Seg–Sáb
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setForm(prev => ({ ...prev, diasFuncionamento: [0, 1, 2, 3, 4, 5, 6] }))}
+                  style={{ fontSize: '0.75rem', padding: '0.2rem 0.6rem', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#f8fafc', cursor: 'pointer', fontWeight: 600 }}
+                >
+                  Todos
+                </button>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+              {DAYS_OF_WEEK.map(day => {
+                const active = form.diasFuncionamento?.includes(day.id);
+                return (
+                  <button
+                    key={day.id}
+                    type="button"
+                    onClick={() => toggleDay(day.id)}
+                    style={{
+                      padding: '0.55rem 0.95rem',
+                      borderRadius: '12px',
+                      border: active ? '2px solid var(--color-primary)' : '2px solid #e2e8f0',
+                      background: active ? 'var(--color-primary)' : 'white',
+                      color: active ? 'white' : 'var(--color-text)',
+                      fontWeight: 700,
+                      fontSize: '0.88rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    {day.short}
+                  </button>
+                );
+              })}
+            </div>
+            {form.diasFuncionamento.length === 0 && (
+              <span style={{ color: '#ef4444', fontSize: '0.8rem', display: 'block', marginTop: '0.4rem' }}>
+                * Selecione pelo menos um dia da semana.
+              </span>
+            )}
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '1rem' }}>
@@ -204,7 +280,7 @@ export default function EditarPontoPage({ params }) {
 
           <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
             <button type="button" className="btn btn-outline" onClick={() => router.back()}>Cancelar</button>
-            <button type="submit" className="btn btn-primary" disabled={form.categorias.length === 0 || !position}>Salvar Alterações</button>
+            <button type="submit" className="btn btn-primary" disabled={form.categorias.length === 0 || form.diasFuncionamento.length === 0 || !position}>Salvar Alterações</button>
           </div>
         </form>
       </div>
