@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/lib/auth';
-import { Leaf, LogOut, MapPin, Map, Home, PlusCircle, ShieldAlert } from 'lucide-react';
+import { LogOut, MapPin, Map, Home, PlusCircle, ShieldAlert, Truck, BarChart3 } from 'lucide-react';
 
 export default function Navbar() {
   const { user, role, logout } = useAuth();
@@ -20,20 +20,22 @@ export default function Navbar() {
           />
         </Link>
         
-        <nav className="navbar-nav" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.95rem', fontWeight: 500 }}>
+        <nav className="navbar-nav" style={{ display: 'flex', gap: '1.25rem', alignItems: 'center', fontSize: '0.92rem', fontWeight: 600 }}>
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Home size={16}/> <span className="hide-on-mobile">Início</span></Link>
           <Link href="/mapa" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Map size={16}/> <span className="hide-on-mobile">Mapa</span></Link>
           <Link href="/pontos" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><MapPin size={16}/> <span className="hide-on-mobile">Pontos</span></Link>
+          <Link href="/cata-treco" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Truck size={16}/> <span className="hide-on-mobile">Cata-Treco</span></Link>
+          <Link href="/dashboard" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><BarChart3 size={16}/> <span className="hide-on-mobile">Impacto</span></Link>
           
           {(role === 'PONTO' || role === 'ADMIN') && (
             <Link href="/pontos/novo" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--color-primary)' }}>
-              <PlusCircle size={16}/> <span className="hide-on-mobile">Cadastrar Ponto</span>
+              <PlusCircle size={16}/> <span className="hide-on-mobile">Cadastrar</span>
             </Link>
           )}
 
           {role === 'ADMIN' && (
             <Link href="/admin" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#ea580c' }}>
-              <ShieldAlert size={16}/> <span className="hide-on-mobile">Pendentes</span>
+              <ShieldAlert size={16}/> <span className="hide-on-mobile">Admin</span>
             </Link>
           )}
         </nav>

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { addPoint, CATEGORIES } from '@/lib/db';
+import { addPoint, CATEGORIES, POINT_STATUSES } from '@/lib/db';
 import dynamic from 'next/dynamic';
 
 const LocationPicker = dynamic(() => import('@/components/LocationPicker'), { ssr: false });
@@ -17,6 +17,7 @@ export default function NovoPontoPage() {
     bairro: '',
     telefone: '',
     horario: '',
+    statusOperacional: 'ABERTO',
     descricao: '',
     categorias: []
   });
@@ -41,7 +42,7 @@ export default function NovoPontoPage() {
             const numero = addr.house_number ? `, ${addr.house_number}` : '';
             const novoEndereco = `${rua}${numero}`.trim();
             const novoBairro = addr.suburb || addr.neighbourhood || addr.village || '';
-            
+
             setForm(prev => ({
               ...prev,
               endereco: novoEndereco || prev.endereco,
@@ -50,7 +51,7 @@ export default function NovoPontoPage() {
             setStatus({ type: 'success', msg: 'Endereço preenchido automaticamente pelo mapa! Verifique os dados abaixo.' });
           }
         })
-        .catch(err => console.error("Erro ao buscar endereço:", err));
+        .catch(err => console.error('Erro ao buscar endereço:', err));
     }
   }, [position]);
 
@@ -68,8 +69,7 @@ export default function NovoPontoPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ type: 'info', msg: 'Enviando...' });
-    
-    // Converter lat/lng para number se preenchidos
+
     const dataToSave = {
       ...form,
       latitude: position ? position.lat : null,
@@ -89,7 +89,7 @@ export default function NovoPontoPage() {
   const handleCheckbox = (id) => {
     setForm(prev => ({
       ...prev,
-      categorias: prev.categorias.includes(id) 
+      categorias: prev.categorias.includes(id)
         ? prev.categorias.filter(c => c !== id)
         : [...prev.categorias, id]
     }));
@@ -101,7 +101,7 @@ export default function NovoPontoPage() {
       <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Preencha os dados do local. Após o envio, os dados serão validados.</p>
 
       {status && (
-        <div style={{ 
+        <div style={{
           padding: '1rem', borderRadius: '8px', marginBottom: '2rem',
           background: status.type === 'success' ? '#dcfce7' : status.type === 'error' ? '#fee2e2' : '#e0f2fe',
           color: status.type === 'success' ? '#166534' : status.type === 'error' ? '#991b1b' : '#075985'
@@ -135,7 +135,7 @@ export default function NovoPontoPage() {
             {!position && <span style={{ color: '#ef4444', fontSize: '0.85rem', display: 'block', marginTop: '0.5rem' }}>* Por favor, clique no mapa para definir a localização.</span>}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
             <div className="input-group">
               <label>Telefone</label>
               <input type="text" className="input-field" value={form.telefone} onChange={e => setForm({...form, telefone: e.target.value})} />
@@ -143,6 +143,14 @@ export default function NovoPontoPage() {
             <div className="input-group">
               <label>Horário de Funcionamento</label>
               <input type="text" className="input-field" placeholder="Ex: Seg a Sex, 08h às 18h" value={form.horario} onChange={e => setForm({...form, horario: e.target.value})} />
+            </div>
+            <div className="input-group">
+              <label>Status Atual do Ponto</label>
+              <select className="input-field" value={form.statusOperacional} onChange={e => setForm({...form, statusOperacional: e.target.value})}>
+                {Object.values(POINT_STATUSES).map(st => (
+                  <option key={st.id} value={st.id}>{st.label}</option>
+                ))}
+              </select>
             </div>
           </div>
 

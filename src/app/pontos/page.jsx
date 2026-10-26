@@ -1,12 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { getPoints, CATEGORIES } from '@/lib/db';
+import { getPoints, CATEGORIES, POINT_STATUSES, getPointLiveStatus } from '@/lib/db';
 import PointCard from '@/components/PointCard';
 import { Search } from 'lucide-react';
 
 export default function PontosPage() {
   const [points, setPoints] = useState([]);
   const [filterCat, setFilterCat] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
   const [search, setSearch] = useState('');
 
   const loadPoints = () => {
@@ -18,24 +19,51 @@ export default function PontosPage() {
   }, []);
 
   const filtered = points.filter(p => {
-    const matchSearch = p.nome.toLowerCase().includes(search.toLowerCase()) || p.endereco.toLowerCase().includes(search.toLowerCase());
+    const matchSearch =
+      (p.nome || '').toLowerCase().includes(search.toLowerCase()) ||
+      (p.endereco || '').toLowerCase().includes(search.toLowerCase()) ||
+      (p.bairro || '').toLowerCase().includes(search.toLowerCase());
     const matchCat = filterCat === '' ? true : p.categorias?.includes(filterCat);
-    return matchSearch && matchCat;
+    const liveStatus = getPointLiveStatus(p);
+    const matchStatus = filterStatus === '' ? true : liveStatus.id === filterStatus;
+    return matchSearch && matchCat && matchStatus;
   });
 
   return (
     <div className="container mt-2 mb-2" style={{ padding: '2rem 1.5rem' }}>
       <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>Pontos de Coleta</h1>
-      <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Encontre locais para descarte correto na cidade.</p>
+      <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>
+        Encontre locais para descarte correto na cidade e consulte se estão abertos no momento.
+      </p>
 
-      <div className="search-filter-container" style={{ background: 'white', padding: '1rem', borderRadius: '1rem', display: 'flex', gap: '1rem', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '2rem', flexWrap: 'wrap' }}>
-        <div style={{ flex: '1 1 300px', display: 'flex', alignItems: 'center', background: '#f8fafc', padding: '0 1rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
+      <div style={{ background: 'white', padding: '1rem', borderRadius: '1rem', display: 'flex', gap: '1rem', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '2rem', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1 1 280px', display: 'flex', alignItems: 'center', background: '#f8fafc', padding: '0 1rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
           <Search size={20} color="#94a3b8"/>
-          <input type="text" placeholder="Buscar por nome ou endereço..." value={search} onChange={e => setSearch(e.target.value)} style={{ border: 'none', background: 'transparent', padding: '0.8rem', width: '100%', outline: 'none' }} />
+          <input
+            type="text"
+            placeholder="Buscar por nome, endereço ou bairro..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            style={{ border: 'none', background: 'transparent', padding: '0.8rem', width: '100%', outline: 'none' }}
+          />
         </div>
-        <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ padding: '0.8rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0', outline: 'none', background: 'white', flex: '1 1 200px' }}>
+        <select
+          value={filterCat}
+          onChange={e => setFilterCat(e.target.value)}
+          style={{ padding: '0.8rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0', outline: 'none', background: 'white', flex: '1 1 180px' }}
+        >
           <option value="">Todas as categorias</option>
           {CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}
+        </select>
+        <select
+          value={filterStatus}
+          onChange={e => setFilterStatus(e.target.value)}
+          style={{ padding: '0.8rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0', outline: 'none', background: 'white', flex: '1 1 180px' }}
+        >
+          <option value="">Todos os status</option>
+          {Object.values(POINT_STATUSES).map(st => (
+            <option key={st.id} value={st.id}>{st.label}</option>
+          ))}
         </select>
       </div>
 
