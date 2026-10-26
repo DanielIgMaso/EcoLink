@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import './globals.css';
 import { Outfit } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 
 const outfit = Outfit({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700', '800'] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
           <main style={{ minHeight: '80vh' }}>{children}</main>
           <Footer />
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );
