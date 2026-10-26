@@ -2,7 +2,7 @@
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { getPoint, updatePoint, CATEGORIES } from '@/lib/db';
+import { getPoint, updatePoint, CATEGORIES, POINT_STATUSES } from '@/lib/db';
 import dynamic from 'next/dynamic';
 
 const LocationPicker = dynamic(() => import('@/components/LocationPicker'), { ssr: false });
@@ -18,6 +18,7 @@ export default function EditarPontoPage({ params }) {
     bairro: '',
     telefone: '',
     horario: '',
+    statusOperacional: 'ABERTO',
     descricao: '',
     categorias: []
   });
@@ -43,6 +44,7 @@ export default function EditarPontoPage({ params }) {
             bairro: data.bairro || '',
             telefone: data.telefone || '',
             horario: data.horario || '',
+            statusOperacional: data.statusOperacional || 'ABERTO',
             descricao: data.descricao || '',
             categorias: data.categorias || []
           });
@@ -74,7 +76,7 @@ export default function EditarPontoPage({ params }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ type: 'info', msg: 'Salvando alterações...' });
-    
+
     const dataToSave = {
       ...form,
       latitude: position ? position.lat : null,
@@ -93,7 +95,7 @@ export default function EditarPontoPage({ params }) {
   const handleCheckbox = (id) => {
     setForm(prev => ({
       ...prev,
-      categorias: prev.categorias.includes(id) 
+      categorias: prev.categorias.includes(id)
         ? prev.categorias.filter(c => c !== id)
         : [...prev.categorias, id]
     }));
@@ -102,10 +104,10 @@ export default function EditarPontoPage({ params }) {
   return (
     <div className="container" style={{ padding: '3rem 1.5rem', maxWidth: '800px' }}>
       <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Editar Ponto de Coleta</h1>
-      <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Atualize os dados e a localização no mapa.</p>
+      <p style={{ color: 'var(--color-text-light)', marginBottom: '2rem' }}>Atualize os dados, o status de funcionamento e a localização no mapa.</p>
 
       {status && (
-        <div style={{ 
+        <div style={{
           padding: '1rem', borderRadius: '8px', marginBottom: '2rem',
           background: status.type === 'success' ? '#dcfce7' : status.type === 'error' ? '#fee2e2' : '#e0f2fe',
           color: status.type === 'success' ? '#166534' : status.type === 'error' ? '#991b1b' : '#075985'
@@ -139,7 +141,7 @@ export default function EditarPontoPage({ params }) {
             {!position && <span style={{ color: '#ef4444', fontSize: '0.85rem', display: 'block', marginTop: '0.5rem' }}>* Por favor, clique no mapa para definir a localização.</span>}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
             <div className="input-group">
               <label>Telefone</label>
               <input type="text" className="input-field" value={form.telefone} onChange={e => setForm({...form, telefone: e.target.value})} />
@@ -147,6 +149,14 @@ export default function EditarPontoPage({ params }) {
             <div className="input-group">
               <label>Horário de Funcionamento</label>
               <input type="text" className="input-field" placeholder="Ex: Seg a Sex, 08h às 18h" value={form.horario} onChange={e => setForm({...form, horario: e.target.value})} />
+            </div>
+            <div className="input-group">
+              <label>Status Operacional</label>
+              <select className="input-field" value={form.statusOperacional} onChange={e => setForm({...form, statusOperacional: e.target.value})}>
+                {Object.values(POINT_STATUSES).map(st => (
+                  <option key={st.id} value={st.id}>{st.label}</option>
+                ))}
+              </select>
             </div>
           </div>
 

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Map, Search, Droplets, RefreshCw, MapPin, Truck } from 'lucide-react';
+import { Map, Search, Droplets, RefreshCw, MapPin, Truck, BarChart3, ArrowRight } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -14,14 +14,17 @@ export default function Home() {
             <span style={{ color: '#99f6e4' }}>Cidade Mais Verde</span>
           </h1>
           <p style={{ fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto 2.5rem', opacity: 0.9 }}>
-            O EcoLink conecta você aos pontos de coleta. Encontre onde descartar óleo, eletrônicos e recicláveis de forma correta.
+            O EcoLink conecta você aos pontos de coleta em tempo real. Encontre onde descartar óleo, eletrônicos, agende o Cata-Treco e acompanhe o impacto ambiental na cidade.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/mapa" className="btn" style={{ background: 'white', color: 'var(--color-primary-dark)' }}>
               <Map size={20} /> Ver o Mapa
             </Link>
-            <Link href="/pontos" className="btn" style={{ border: '2px solid rgba(255,255,255,0.5)', color: 'white' }}>
-              <Search size={20} /> Buscar Pontos
+            <Link href="/cata-treco" className="btn" style={{ background: 'rgba(255,255,255,0.18)', border: '2px solid rgba(255,255,255,0.7)', color: 'white' }}>
+              <Truck size={20} /> Agendar Cata-Treco
+            </Link>
+            <Link href="/dashboard" className="btn" style={{ border: '2px solid rgba(255,255,255,0.5)', color: 'white' }}>
+              <BarChart3 size={20} /> Dashboard de Impacto
             </Link>
           </div>
         </div>
@@ -30,7 +33,7 @@ export default function Home() {
       <section className="container mt-2 mb-2" style={{ padding: '4rem 1rem' }}>
         <div className="text-center" style={{ marginBottom: '3rem' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--color-dark)' }}>O que coletamos?</h2>
-          <p style={{ color: 'var(--color-text-light)' }}>Conheça as categorias aceitas nos pontos de coleta cadastrados.</p>
+          <p style={{ color: 'var(--color-text-light)' }}>Conheça as categorias aceitas nos pontos de coleta cadastrados e os serviços disponíveis.</p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%,400px), 1fr))', gap: '2rem' }}>
@@ -56,15 +59,22 @@ export default function Home() {
               <MapPin color="white" size={32} />
             </div>
             <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem', color: 'var(--color-dark)' }}>Ecopontos Municipais</h3>
-            <p style={{ color: 'var(--color-text-light)', fontSize: '0.95rem' }}>Locais da prefeitura para recebimento de recicláveis, móveis velhos e resíduos volumosos.</p>
+            <p style={{ color: 'var(--color-text-light)', fontSize: '0.95rem' }}>Locais da prefeitura para recebimento de recicláveis, móveis velhos e resíduos volumosos com status de lotação em tempo real.</p>
           </div>
 
-          <div className="glass-card">
+          <div className="glass-card" style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ width: '60px', height: '60px', borderRadius: '16px', background: 'var(--cat-truck)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <Truck color="white" size={32} />
             </div>
-            <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem', color: 'var(--color-dark)' }}>Cata-Treco</h3>
-            <p style={{ color: 'var(--color-text-light)', fontSize: '0.95rem' }}>Serviço de coleta em domicílio para resíduos volumosos que você não pode transportar. Ligue 34 99938-2657 e agende a retirada de sofás, móveis e eletrodomésticos.</p>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem', color: 'var(--color-dark)' }}>Cata-Treco Online</h3>
+            <p style={{ color: 'var(--color-text-light)', fontSize: '0.95rem', marginBottom: '1.25rem' }}>
+              Serviço de coleta em domicílio para resíduos volumosos que você não pode transportar. Solicite a retirada de sofás, móveis e eletrodomésticos enviando foto pelo site ou pelo telefone (34) 99938-2657.
+            </p>
+            <div style={{ marginTop: 'auto' }}>
+              <Link href="/cata-treco" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--color-primary)', fontWeight: 700, fontSize: '0.95rem' }}>
+                Agendar retirada pelo site <ArrowRight size={16} />
+              </Link>
+            </div>
           </div>
 
         </div>
